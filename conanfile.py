@@ -6,18 +6,18 @@ from conans.tools import replace_in_file
 class QcaConan(ConanFile):
     name = "qca"
     description = "Qt Cryptographic Architecture"
-    version = "2.2.0"
+    version = "2.2.1"
     license = "LGPL 2.1"
     url = "https://github.com/KDE/qca"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True]}
     default_options = "shared=True"
     generators = "cmake_find_package"
-    requires = "Qt/5.11.0@bincrafters/stable", "OpenSSL/1.0.2o@conan/stable", "cyrus-sasl-sasl2/2.1.26@rion/stable"
+    requires = "qt/5.13.1@bincrafters/stable", "openssl/1.1.1d@conan/stable", "cyrus-sasl-sasl2/2.1.26@rion/stable"
     scm = {
         "type": "git",
         "url": "https://github.com/KDE/qca.git",
-        "revision": "da4d1d06d4f67104738cb027b215eb41293c85cd" # 2.2.0 + fixes
+        "revision": "v2.2.1"
     }
 
     def build(self):
