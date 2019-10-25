@@ -1,7 +1,4 @@
-import os
-
-from conans import ConanFile, tools, CMake
-from conans.tools import replace_in_file
+from conans import ConanFile, CMake
 
 class QcaConan(ConanFile):
     name = "qca"
@@ -13,7 +10,10 @@ class QcaConan(ConanFile):
     options = {"shared": [True]}
     default_options = "shared=True"
     generators = "cmake_find_package"
-    requires = "qt/5.13.1@bincrafters/stable", "openssl/1.1.1d"
+    requires = [
+        "qt/5.13.1@kwconan/stable",
+        "openssl/1.1.1d"
+    ]
     scm = {
         "type": "git",
         "url": "https://github.com/KDE/qca.git",
