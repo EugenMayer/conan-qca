@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake
+from conans import ConanFile, CMake, tools
 
 class QcaConan(ConanFile):
     name = "qca"
@@ -19,11 +19,17 @@ class QcaConan(ConanFile):
         "url": "https://github.com/KDE/qca.git",
         "revision": "v2.2.1"
     }
+    exports = ["patches/*.patch"]
+
+    def source(self):
+        tools.patch(patch_file="patches/qca_relative_imported_include_path.patch")
+
 
     def _configure_cmake(self):
         cmake = CMake(self)
         cmake.definitions["BUILD_TESTS"] = "OFF"
-        cmake.definitions["USE_RELATIVE_PATHS"] = "ON"
+        cmake.definitions["USE_RELATIVE_PATHS"] = "ON" # Make QCA (try to) avoid absolute (conan-specific) paths
+        cmake.definitions["CMAKE_INSTALL_SO_NO_EXE"] = "OFF" # Force CMake to set execution permission, even on Debian-based build systems
         cmake.definitions["CMAKE_INSTALL_RPATH"] = '\\$ORIGIN:\\$ORIGIN/lib:\\$ORIGIN/../lib:.:lib:../lib' # Do not load other libraries, only local ones!
         cmake.definitions["CMAKE_EXE_LINKER_FLAGS"] = '-Wl,--unresolved-symbols=ignore-in-shared-libs' # Do not complain about missing transitive dependencies while linking!
         cmake.definitions["CMAKE_SHARED_LINKER_FLAGS"] = '-Wl,--unresolved-symbols=ignore-in-shared-libs' # Do not complain about missing transitive dependencies while linking!
