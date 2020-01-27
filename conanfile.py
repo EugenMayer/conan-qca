@@ -1,4 +1,6 @@
+import os
 from conans import ConanFile, CMake, tools
+from conans.tools import replace_in_file
 
 class QcaConan(ConanFile):
     name = "qca"
@@ -24,14 +26,26 @@ class QcaConan(ConanFile):
     def source(self):
         tools.patch(patch_file="patches/qca_relative_imported_include_path.patch")
 
+        # Fix QCA's CMAKE_MODULE_PATH:
+        replace_in_file("CMakeLists.txt",
+            'set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" )',
+            'set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")',
+        )
+
+        # Fix Conan's OpenSSL target:
+        # (Conan should export OpenSSL::SSL and ::Crypto, but exports only OpenSSL::OpenSSL)
+        replace_in_file(os.path.join("plugins", "qca-ossl", "CMakeLists.txt"),
+            'target_link_libraries(qca-ossl OpenSSL::SSL OpenSSL::Crypto)',
+            'target_link_libraries(qca-ossl OpenSSL::OpenSSL)',
+        )
 
     def _configure_cmake(self):
         cmake = CMake(self)
         cmake.definitions["BUILD_TESTS"] = "OFF"
         cmake.definitions["USE_RELATIVE_PATHS"] = "ON" # Make QCA (try to) avoid absolute (conan-specific) paths
-        cmake.definitions["CMAKE_INSTALL_SO_NO_EXE"] = "OFF" # Force CMake to set execution permission, even on Debian-based build systems
         cmake.definitions["CMAKE_INSTALL_RPATH"] = '\\$ORIGIN:\\$ORIGIN/lib:\\$ORIGIN/../lib:.:lib:../lib' # Do not load other libraries, only local ones!
         if self.settings.os == 'Linux':
+            cmake.definitions["CMAKE_INSTALL_SO_NO_EXE"] = "OFF" # Force CMake to set execution permission, even on Debian-based build systems
             cmake.definitions["CMAKE_EXE_LINKER_FLAGS"] = '-Wl,--unresolved-symbols=ignore-in-shared-libs' # Do not complain about missing transitive dependencies while linking!
             cmake.definitions["CMAKE_SHARED_LINKER_FLAGS"] = '-Wl,--unresolved-symbols=ignore-in-shared-libs' # Do not complain about missing transitive dependencies while linking!
         cmake.configure()
