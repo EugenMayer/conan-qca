@@ -42,6 +42,7 @@ class QcaConan(ConanFile):
     def _configure_cmake(self):
         cmake = CMake(self)
         cmake.definitions["BUILD_TESTS"] = "OFF"
+        cmake.definitions["OSX_FRAMEWORK"] = "OFF" # Do not build a framework on macOS, but normal libraries.
         cmake.definitions["USE_RELATIVE_PATHS"] = "ON" # Make QCA (try to) avoid absolute (conan-specific) paths
         cmake.definitions["CMAKE_INSTALL_RPATH"] = '\\$ORIGIN:\\$ORIGIN/lib:\\$ORIGIN/../lib:.:lib:../lib' # Do not load other libraries, only local ones!
         if self.settings.os == 'Linux':
