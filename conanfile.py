@@ -44,11 +44,14 @@ class QcaConan(ConanFile):
         cmake.definitions["BUILD_TESTS"] = "OFF"
         cmake.definitions["OSX_FRAMEWORK"] = "OFF" # Do not build a framework on macOS, but normal libraries.
         cmake.definitions["USE_RELATIVE_PATHS"] = "ON" # Make QCA (try to) avoid absolute (conan-specific) paths
-        cmake.definitions["CMAKE_INSTALL_RPATH"] = '\\$ORIGIN:\\$ORIGIN/lib:\\$ORIGIN/../lib:.:lib:../lib' # Do not load other libraries, only local ones!
         if self.settings.os == 'Linux':
+            cmake.definitions["CMAKE_INSTALL_RPATH"] = '\\$ORIGIN:\\$ORIGIN/lib:\\$ORIGIN/../lib:.:lib:../lib' # Do not load other libraries, only local ones!
             cmake.definitions["CMAKE_INSTALL_SO_NO_EXE"] = "OFF" # Force CMake to set execution permission, even on Debian-based build systems
             cmake.definitions["CMAKE_EXE_LINKER_FLAGS"] = '-Wl,--unresolved-symbols=ignore-in-shared-libs' # Do not complain about missing transitive dependencies while linking!
             cmake.definitions["CMAKE_SHARED_LINKER_FLAGS"] = '-Wl,--unresolved-symbols=ignore-in-shared-libs' # Do not complain about missing transitive dependencies while linking!
+        elif self.settings.os == 'Macos':
+            cmake.definitions["CMAKE_INSTALL_RPATH"] = '@executable_path/../lib' # Do not load other libraries, only local ones!
+            cmake.definitions["CMAKE_MACOSX_RPATH"] = 'ON' # Make targets that use QCA's libraries use @rpath!
         cmake.configure()
         return cmake
 
