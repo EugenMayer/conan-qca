@@ -22,7 +22,8 @@ class QcaConan(ConanFile):
         "revision": "v2.2.1"
     }
     exports = ["patches/*.patch"]
-
+    revision_mode = "scm"
+    
     def source(self):
         tools.patch(patch_file="patches/qca_relative_imported_include_path.patch")
         tools.patch(patch_file="patches/qca_target_file_for_configuration.patch")
