@@ -5,7 +5,7 @@ from conans.tools import replace_in_file
 class QcaConan(ConanFile):
     name = "qca"
     description = "Qt Cryptographic Architecture"
-    version = "2.2.1"
+    version = "2.2.1-1"
     license = "LGPL 2.1"
     url = "https://github.com/KDE/qca"
     settings = "os", "compiler", "build_type", "arch"
