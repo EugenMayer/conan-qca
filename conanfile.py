@@ -26,7 +26,7 @@ class QcaConan(ConanFile):
     
     def source(self):
         tools.patch(patch_file="patches/qca_relative_imported_include_path.patch")
-        tools.patch(patch_file="patches/qca_target_file_for_configuration.patch")
+        #tools.patch(patch_file="patches/qca_target_file_for_configuration.patch")
 
         # Fix QCA's CMAKE_MODULE_PATH:
         replace_in_file("CMakeLists.txt",
