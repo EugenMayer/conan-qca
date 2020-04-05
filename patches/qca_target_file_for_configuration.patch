@@ -1,5 +1,5 @@
 diff --git a/cmake/modules/QcaMacro.cmake b/cmake/modules/QcaMacro.cmake
-index 5d86e472..c9d50d55 100644
+index 5d86e472..dad70b1c 100644
 --- a/cmake/modules/QcaMacro.cmake
 +++ b/cmake/modules/QcaMacro.cmake
 @@ -62,13 +62,8 @@ endmacro(add_qca_test)
@@ -17,3 +17,4 @@ index 5d86e472..c9d50d55 100644
 +    install(FILES ${LOCATION} DESTINATION ${INSTALL_PATH} CONFIGURATIONS Debug;RelWithDebInfo)
    endif()
  endmacro(install_pdb)
+ 

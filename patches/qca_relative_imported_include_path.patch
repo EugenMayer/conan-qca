@@ -11,7 +11,7 @@ index 42cd3049..2d8b0353 100644
 +    set(QCA_PLUGINS_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/bin/${QCA_LIB_NAME}" CACHE PATH "Directory where qca plugins will install")
 +  else(WIN32)
 +    set(QCA_PLUGINS_INSTALL_DIR "${LIB_INSTALL_DIR}/${QCA_LIB_NAME}" CACHE PATH "Directory where qca plugins will install")
-+  endif
++  endif()
    set(QCA_BINARY_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/bin" CACHE PATH "Directory where qca plugins will install")
    set(QCA_LIBRARY_INSTALL_DIR "${LIB_INSTALL_DIR}" CACHE PATH "Directory where qca library will install")
    set(QCA_FEATURE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/mkspecs/features" CACHE PATH "Directory where qca feature file will install")
