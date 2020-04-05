@@ -19,7 +19,9 @@ class QcaConan(ConanFile):
     scm = {
         "type": "git",
         "url": "https://github.com/KDE/qca.git",
-        "revision": "v2.3.0"
+        # we have to build head, since some of the cross-platform fixes are not release with 2.3.0
+        "revision": "886d37792ce53efeb5bc299a1b803de99cf70438"
+        #"revision": "v2.3.0"
     }
     exports = ["patches/*.patch"]
     revision_mode = "scm"
