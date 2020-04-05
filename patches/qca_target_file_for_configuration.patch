@@ -1,8 +1,8 @@
 diff --git a/cmake/modules/QcaMacro.cmake b/cmake/modules/QcaMacro.cmake
-index 88e3121..7a6b2ed 100644
+index 5d86e472..c9d50d55 100644
 --- a/cmake/modules/QcaMacro.cmake
 +++ b/cmake/modules/QcaMacro.cmake
-@@ -102,13 +102,8 @@ endmacro(add_qca_test)
+@@ -62,13 +62,8 @@ endmacro(add_qca_test)
  
  macro(install_pdb TARGET INSTALL_PATH)
    if(MSVC)
@@ -15,6 +15,5 @@ index 88e3121..7a6b2ed 100644
 -    install(FILES ${LOCATION} DESTINATION ${INSTALL_PATH} CONFIGURATIONS RelWithDebInfo)
 +    string(REGEX REPLACE "\\.[^.]*$" ".pdb" LOCATION "$<TARGET_FILE:${TARGET}>")
 +    install(FILES ${LOCATION} DESTINATION ${INSTALL_PATH} CONFIGURATIONS Debug;RelWithDebInfo)
-   endif(MSVC)
+   endif()
  endmacro(install_pdb)
- 
