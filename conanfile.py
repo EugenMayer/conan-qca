@@ -16,6 +16,7 @@ class QcaConan(ConanFile):
         "qt/5.15.0@kwconan/stable",
         "openssl/1.1.1g"
     ]
+    scm_to_conandata = True
     scm = {
         "type": "git",
         "url": "https://github.com/KDE/qca.git",
