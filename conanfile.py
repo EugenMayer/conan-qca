@@ -21,10 +21,10 @@ class QcaConan(ConanFile):
         "type": "git",
         "url": "https://github.com/KDE/qca.git",
         # when you have to build a specific revision
-        #"revision": "886d37792ce53efeb5bc299a1b803de99cf70438"
+        "revision": "0684db8255cb0e73bbf00b27210a4ac95472a9d0"
         
         # otherwise rather use the tag
-        "revision": "v2.3.1"
+        #"revision": "v2.3.1"
     }
     exports = ["patches/*.patch"]
     revision_mode = "scm"
