@@ -14,7 +14,7 @@ class QcaConan(ConanFile):
     generators = "cmake_find_package"
     requires = [
         "qt/5.15.2@kwconan/stable",
-        "openssl/1.1.1g"
+        "openssl/1.1.1h"
     ]
     scm_to_conandata = True
     scm = {
