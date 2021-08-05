@@ -2,7 +2,7 @@
 Conan packages for Qt Cryptographic Architecture - build from [KDE/qca](https://github.com/KDE/qca)
 
 ## Published builds
-Eventhough this package is build and published on bintray, it is a build with specific flags  we need under [bintray](https://bintray.com/eugenmayer/oss/qca%3Akwconan/) - but you usally would build it using either no flags or you custom flags
+Into a private conan repository since bintray is no longer.
 
 # Upgrade QCA
 
@@ -22,7 +22,7 @@ Eventhough this package is build and published on bintray, it is a build with sp
 
 `patches/qca_relative_imported_include_path.patch`
 Does fix the issue that for windows libraries are expected in `bin/` but for macOS and linux, they are expected in `lib/`.
-This is especially important if QCA is used as a shared lib to link against dynamically in you own project, when dealing with x-platform.
+This is especially important if QCA is used as a shared lib to link against dynamically in your own project, when dealing with x-platform builds.
 
 Also fixes that QCA's exported include files use a relocatable path.
 
