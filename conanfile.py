@@ -39,7 +39,7 @@ class QcaConan(ConanFile):
         # which requires the call of conan_basic_setup()
         tools.replace_in_file("CMakeLists.txt", "project(qca)",
         '''project(qca)
-           include(conanbuildinfo.cmake)
+           include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
            conan_basic_setup()''')
         
         # Fix QCA's CMAKE_MODULE_PATH:
