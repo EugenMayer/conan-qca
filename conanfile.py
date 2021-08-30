@@ -34,7 +34,14 @@ class QcaConan(ConanFile):
     def source(self):
         tools.patch(patch_file="patches/qca_relative_imported_include_path.patch")
         tools.patch(patch_file="patches/qca_target_file_for_configuration.patch")
-
+        
+        # We need to inject conan support since conan-center qt build does generate cmake using conan tools
+        # which requires the call of conan_basic_setup()
+        tools.replace_in_file("CMakeLists.txt", "project(qca)",
+        '''project(qca)
+           include(${CMAKE_SOURCE_DIR}/conanbuildinfo.cmake)
+           conan_basic_setup()''')
+        
         # Fix QCA's CMAKE_MODULE_PATH:
         replace_in_file("CMakeLists.txt",
             'set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" )',
