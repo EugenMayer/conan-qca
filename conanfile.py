@@ -37,6 +37,7 @@ class QcaConan(ConanFile):
         
         # We need to inject conan support since conan-center qt build does generate cmake using conan tools
         # which requires the call of conan_basic_setup()
+        # @see https://docs.conan.io/en/latest/reference/tools.html#tools-replace-in-file for how this patch works
         tools.replace_in_file("CMakeLists.txt", "project(qca)",
         '''project(qca)
            include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
