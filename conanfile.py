@@ -32,6 +32,9 @@ class QcaConan(ConanFile):
     exports = ["patches/*.patch"]
     revision_mode = "scm"
     
+    def build_requirements(self):
+        self.build_requires("pkgconf/1.7.3")
+        
     def source(self):
         tools.patch(patch_file="patches/qca_relative_imported_include_path.patch")
         tools.patch(patch_file="patches/qca_target_file_for_configuration.patch")
