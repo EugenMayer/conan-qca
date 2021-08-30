@@ -11,7 +11,8 @@ class QcaConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True]}
     default_options = "shared=True"
-    generators = "cmake_find_package"
+    # generate cmake, needed later for conan_basic_setup
+    generators = "cmake_find_package", "cmake"
     requires = [
         "qt/5.15.2@kwconan/stable",
         # stick to 1.1.1h since 5.15.2 is compiled against it
