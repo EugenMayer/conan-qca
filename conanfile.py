@@ -15,9 +15,8 @@ class QcaConan(ConanFile):
     generators = "cmake_find_package", "cmake"
     requires = [
         "qt/5.15.2@kwconan/stable",
-        # stick to 1.1.1h since 5.15.2 is compiled against it
-        # see https://github.com/bincrafters/conan-qt/blob/stable/5.15.2/conanfile.py#L287
-        "openssl/1.1.1h"
+        # this is how you can override the openssl version, should qt require a different one
+        # "openssl/1.1.1h"
     ]
     scm_to_conandata = True
     scm = {
